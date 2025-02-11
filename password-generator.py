@@ -1,19 +1,26 @@
 import random
 import string
 
+def generate_password(length: int) -> str:
+    """Generates a random password of the given length."""
+    characters = string.ascii_letters + string.digits + string.punctuation
+    return ''.join(random.choice(characters) for _ in range(length))
 
-def random_password(length: int) -> str: #Generating password
-    digit = string.punctuation + string.ascii_letters + string.digits #adding symbols for our future pass
-    return ''.join(random.choice(digit) for _ in range(length)) #Return final password
+def get_password_length() -> int:
+    """Asks the user for the password length and ensures it's valid."""
+    while True:
+        try:
+            length = int(input("Enter the number of characters for the password: "))
+            if length > 0:
+                return length
+            print("Error: Please enter a number greater than 0.")
+        except ValueError:
+            print("Error: Please enter a valid integer.")
 
-while True: #Simple try/except
-    try:
-        your_length = int(input("Write number of symbols: "))
-        if your_length <= 0: #Check for 0 symbols
-            print("Please,write number greater than 0")
-            continue
-        break
-    except ValueError as err:
-        print(err)
+def main():
+    """Main function to generate and display the password."""
+    length = get_password_length()
+    print("Your generated password:", generate_password(length))
 
-print("Your password is: " , random_password(your_length))
+if __name__ == "__main__":
+    main()
